@@ -32,14 +32,16 @@
 			<li class="clearfix"></li>
 		</ul>
 	</form:form> --%>
-	<form action="" class="breadcrumb form-search" modelAttribute="user">
-			<li><label>登录名：</label><input type="text" maxlength="50" class="input-mini"/></li>
-			<li><label>姓名：</label><input  type="text" maxlength="50" class="input-mini"/></li>
+	<form action="${ctx}/sys/analysis/list" method="post" class="breadcrumb form-search">
+			<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
+			<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
+			<li><label>登录名：</label><input id="createBy.loginName" name="createBy.loginName" type="text" maxlength="50" class="input-mini"/></li>
+			<li><label>姓名：</label><input  id="createBy.name" name="createBy.name" type="text" maxlength="50" class="input-mini"/></li>
 			<label>登录时间：&nbsp;</label><input id="beginDate" name="beginDate" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
 				value="<fmt:formatDate value="${log.beginDate}" pattern="yyyy-MM-dd"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			<label>&nbsp;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input id="endDate" name="endDate" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
 				value="<fmt:formatDate value="${log.endDate}" pattern="yyyy-MM-dd"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>&nbsp;&nbsp;&nbsp;&nbsp;
-			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询" onclick="return page();"/></li>
+			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 	</form>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/sys/analysis/list">登录日志</a></li>

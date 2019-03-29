@@ -40,6 +40,13 @@ public class LogService extends CrudService<LogDao, Log> {
 	}
 	//查询登录记录
 	public Page<Log> findLogin(Page<Log> page, Log log) {
+		//设置默认时间范围，默认当前月
+		if (log.getBeginDate() == null){
+			log.setBeginDate(DateUtils.setDays(DateUtils.parseDate(DateUtils.getDate()), 1));
+		}
+		if (log.getEndDate() == null){
+			log.setEndDate(DateUtils.addMonths(log.getBeginDate(), 1));
+		}
 		log.setPage(page);
 		page.setList(logDao.findLogin(log));
 		return page;

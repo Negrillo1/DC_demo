@@ -71,6 +71,13 @@
 		FROM sys_log a
 		JOIN sys_user u ON u.id = a.create_by
 		WHERE a.title = '系统登录'
+		AND a.create_date BETWEEN #{beginDate} AND #{endDate}
+		<if test="createBy != null and createBy.loginName != null and createBy.loginName != ''">
+			AND u.login_name LIKE CONCAT('%', #{createBy.loginName}, '%')
+		</if>
+		<if test="createBy != null and createBy.name != null and createBy.name != ''">
+			AND u.name LIKE CONCAT('%', #{createBy.name}, '%')
+		</if>
 		ORDER BY a.create_date DESC
 	</select>
 </mapper>
