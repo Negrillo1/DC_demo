@@ -71,5 +71,12 @@ public interface UserDao extends CrudDao<User> {
 	 * @return
 	 */
 	public int updateUserInfo(User user);
+	/**
+	 * @version: 
+	 * @Description: 禁用账号 
+	 * @author: ljk  
+	 * @date: 2019年3月29日 上午2:08:30
+	 */
+	public int disable(User user);
 
 }

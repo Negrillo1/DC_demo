@@ -19,6 +19,16 @@
 				$.jBox($("#importBox").html(), {title:"导入数据", buttons:{"关闭":true}, 
 					bottomText:"导入文件不能超过5M，仅允许导入“xls”或“xlsx”格式文件！"});
 			});
+			//禁用启用
+			$(".btn_dis").click(function() {
+				if($(this).text() == '停用') {
+					$(this).attr('class','btn btn-success btn_dis');
+					$(this).text('启用');
+				}else if($(this).text() == '启用') {
+					$(this).attr('class','btn btn-warning btn_dis');
+					$(this).text('停用');
+				}
+			});
 		});
 		function page(n,s){
 			if(n) $("#pageNo").val(n);
@@ -76,7 +86,12 @@
 				<shiro:hasPermission name="sys:user:edit"><td>
     				<button class="btn btn-primary"><a href="${ctx}/sys/user/form?id=${user.id}" style="color: white; text-decoration: none;">修改</a></button>&nbsp;&nbsp;
 					<%-- <button class="btn btn-danger"><a href="${ctx}/sys/user/delete?id=${user.id}" onclick="return confirmx('确认要删除该用户吗？', this.href)" style="color: white; text-decoration: none;">删除</a></button>&nbsp;&nbsp; --%>
-					<button class="btn btn-warning">停用</button>
+					<c:if test="${user.loginFlag == 1 }">
+						<button class="btn btn-warning btn_dis"><a href="${ctx}/sys/user/disable?id=${user.id}&loginFlag=0" style="color: white; text-decoration: none;">停用</a></button>
+					</c:if>
+					<c:if test="${user.loginFlag == 0 }">
+						<button class="btn btn-success btn_dis"><a href="${ctx}/sys/user/disable?id=${user.id}&loginFlag=1" style="color: white; text-decoration: none;">启用</a></button>
+					</c:if>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

@@ -94,7 +94,18 @@ public class UserController extends BaseController {
 		model.addAttribute("allRoles", systemService.findAllRole());
 		return "modules/sys/userForm";
 	}
-
+	/**
+	 * @version: 
+	 * @Description: 禁用账号 
+	 * @author: ljk  
+	 * @date: 2019年3月29日 上午2:03:51
+	 */
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = "disable")
+	public String disable(User user, Model model) {
+		systemService.disable(user);
+		return "redirect:" + adminPath + "/sys/user/list?repage";
+	}
 	@RequiresPermissions("sys:user:edit")
 	@RequestMapping(value = "save")
 	public String save(User user, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {

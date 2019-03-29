@@ -179,6 +179,16 @@ public class SystemService extends BaseService implements InitializingBean {
 //		// 清除权限缓存
 //		systemRealm.clearAllCachedAuthorizationInfo();
 	}
+	/**
+	 * @version: 
+	 * @Description: 禁用账号
+	 * @author: ljk  
+	 * @date: 2019年3月29日 上午2:00:11
+	 */
+	@Transactional(readOnly = false)
+	public void disable(User user) {
+		userDao.disable(user);
+	}
 	
 	@Transactional(readOnly = false)
 	public void updatePasswordById(String id, String loginName, String newPassword) {

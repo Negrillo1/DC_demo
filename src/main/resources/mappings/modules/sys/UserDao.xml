@@ -317,7 +317,12 @@
 			photo = #{photo}
 		WHERE id = #{id}
 	</update>
-	
+	<!-- 禁用用户 -->
+	<update id="disable">
+		UPDATE sys_user SET
+			login_flag = #{loginFlag}
+		WHERE id = #{id}
+	</update>
 	<!-- 更新用户密码 -->
 	<update id="updatePasswordById">
 		UPDATE sys_user SET 
