@@ -11,6 +11,13 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:/spring-context*.xml</param-value>
 	</context-param>
+	<!-- 在线用户数监听器 -->
+	<listener>
+		<listener-class>com.thinkgem.jeesite.modules.sys.listener.OnlineListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.thinkgem.jeesite.modules.sys.listener.ServletRquestListener</listener-class>
+	</listener>
 	<listener>
 		<listener-class>com.thinkgem.jeesite.modules.sys.listener.WebContextListener</listener-class>
 	</listener>
@@ -190,10 +197,10 @@
 	
 	<!-- [INSERT FRAGMENT HERE] -->
 
-	<!-- Session configure, to "jeesite.properties" file "session.sessionTimeout" parameter.
+	<!-- Session configure, to "jeesite.properties" file "session.sessionTimeout" parameter. -->
 	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>-->
+		<session-timeout>1</session-timeout>
+	</session-config>
 
 	<!-- Error page -->
 	<!-- <error-page>

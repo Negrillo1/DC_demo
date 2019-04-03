@@ -1,5 +1,8 @@
 package com.thinkgem.jeesite.modules.sys.web;
 
+import java.util.ArrayList;
+import java.util.Vector;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +16,8 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.sys.entity.Log;
 import com.thinkgem.jeesite.modules.sys.service.LogService;
+import com.thinkgem.jeesite.modules.sys.utils.UserInfo;
+
 
 /**
  * @version: 
@@ -43,5 +48,18 @@ public class AnalysisController extends BaseController{
 	@RequestMapping(value = {"charts"})
 	public String charts(Log log, HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "modules/sys/analysisCharts";
+	}
+	/**
+	 * @version: 
+	 * @Description:  跳转到在当前线用户页面
+	 * @author: ljk  
+	 * @date: 2019年4月3日 上午1:23:28
+	 */
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = {"onlineUsers"})
+	public String toOnlineUsers(Log log, HttpServletRequest request, HttpServletResponse response, Model model) {
+		ArrayList<UserInfo> userlist = (ArrayList<UserInfo>)request.getSession().getServletContext().getAttribute("userlist");
+		model.addAttribute("userlist",userlist);
+		return "modules/sys/onlineUsers"; 
 	}
 }
