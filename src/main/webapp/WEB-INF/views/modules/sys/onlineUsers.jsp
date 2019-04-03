@@ -7,10 +7,26 @@
 <meta name="decorator" content="default"/>
 <title>图表</title>
 <script src="${ctxStatic}/echarts/echarts.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		function getNow(s) {
+			return s < 10 ? '0' + s: s;
+		}
+		var myDate = new Date();
+		var year=myDate.getFullYear();
+		var month=myDate.getMonth()+1;
+		var date=myDate.getDate(); 
+		var h=myDate.getHours();//获取当前小时数(0-23)
+		var m=myDate.getMinutes();//获取当前分钟数(0-59)
+		var s=myDate.getSeconds();
+		var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
+		$("#date").text(now);
+	});
+</script>
 </head>
 <body>
 	<div class="hero-unit" style="text-align: center;">
-		<small>在线用户</small><h1><%= application.getAttribute("numberCount") %></h1>
+		<small id="date"></small><h1><%= application.getAttribute("numberCount") %></h1><small>在线用户</small>
 	</div>
 	
 	
