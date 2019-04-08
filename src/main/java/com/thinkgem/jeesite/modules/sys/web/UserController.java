@@ -3,6 +3,8 @@
  */
 package com.thinkgem.jeesite.modules.sys.web;
 
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +36,10 @@ import com.thinkgem.jeesite.common.utils.excel.ImportExcel;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.entity.Role;
+import com.thinkgem.jeesite.modules.sys.entity.SysUserOnlineLog;
 import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.security.SystemAuthorizingRealm.Principal;
+import com.thinkgem.jeesite.modules.sys.service.SysUserOnlineLogService;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
@@ -49,6 +54,8 @@ public class UserController extends BaseController {
 
 	@Autowired
 	private SystemService systemService;
+	@Autowired
+	private SysUserOnlineLogService sysUserOnlineLogService;
 	
 	@ModelAttribute
 	public User get(@RequestParam(required=false) String id) {
@@ -105,6 +112,39 @@ public class UserController extends BaseController {
 	public String disable(User user, Model model) {
 		systemService.disable(user);
 		return "redirect:" + adminPath + "/sys/user/list?repage";
+	}
+	/**
+	 * 
+	 * @version:  
+	 * @Description: 账号退出时统计在线时长
+	 * @author: ljk  
+	 * @date: 2019年4月8日 下午12:44:24
+	 * @param: @param user
+	 * @param: @param model
+	 * @param: @return      
+	 * @return: String
+	 */
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = "logout")
+	@ResponseBody
+	public void logout(HttpServletRequest request,User user, Model model) {
+		Principal principal = UserUtils.getPrincipal();
+		String loginName = principal.getLoginName();
+		long loginTime = (Long)request.getSession().getServletContext().getAttribute(loginName);
+		SysUserOnlineLog sol  = new SysUserOnlineLog();
+		sol.setLoginName(loginName);
+		sol.setLoginTime(loginTime);
+		SysUserOnlineLog soll = sysUserOnlineLogService.findBy(sol);
+		long logoutTime = new Date().getTime();
+		long between = (logoutTime - loginTime)/1000L;
+		long day = between/0x15180L;
+		long hour = (between % 0x15180L) / 3600L;
+		long minute = (between % 3600L) / 60L;
+		double onlineHours = (double)(day * 24L + hour) + (double)minute / 60F;
+		System.out.println(hour);
+		soll.setLogoutTime(logoutTime);
+		soll.setOnlineHours(onlineHours);
+		sysUserOnlineLogService.save(soll);
 	}
 	@RequiresPermissions("sys:user:edit")
 	@RequestMapping(value = "save")

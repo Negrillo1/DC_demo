@@ -3,6 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.sys.web;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +28,10 @@ import com.thinkgem.jeesite.common.utils.CookieUtils;
 import com.thinkgem.jeesite.common.utils.IdGen;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.sys.entity.SysUserOnlineLog;
 import com.thinkgem.jeesite.modules.sys.security.FormAuthenticationFilter;
 import com.thinkgem.jeesite.modules.sys.security.SystemAuthorizingRealm.Principal;
+import com.thinkgem.jeesite.modules.sys.service.SysUserOnlineLogService;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
 /**
@@ -41,6 +44,8 @@ public class LoginController extends BaseController{
 	
 	@Autowired
 	private SessionDAO sessionDAO;
+	@Autowired
+	private SysUserOnlineLogService sysUserOnlineLogService; 
 	
 	/**
 	 * 管理登录
@@ -133,7 +138,15 @@ public class LoginController extends BaseController{
 	@RequestMapping(value = "${adminPath}")
 	public String index(HttpServletRequest request, HttpServletResponse response) {
 		Principal principal = UserUtils.getPrincipal();
-
+		
+		//记录在线日志
+		String loginName = principal.getLoginName();
+		Date loginTime = new Date();
+		SysUserOnlineLog sysUserOnlineLog = new SysUserOnlineLog();
+		sysUserOnlineLog.setLoginName(loginName);
+		sysUserOnlineLog.setLoginTime(loginTime.getTime());
+		sysUserOnlineLogService.save(sysUserOnlineLog);
+		request.getSession().getServletContext().setAttribute(loginName, loginTime.getTime());
 		// 登录成功后，验证码计算器清零
 		isValidateCodeLogin(principal.getLoginName(), false, true);
 		

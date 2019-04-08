@@ -127,6 +127,13 @@
 			}
 			getNotifyNum(); //<c:if test="${oaNotifyRemindInterval ne '' && oaNotifyRemindInterval ne '0'}">
 			setInterval(getNotifyNum, ${oaNotifyRemindInterval}); //</c:if>
+			//退出方法
+			$("#logout").click(function() {
+				var loginName = $("#loginName").text(); 
+				var endTime = new Date();
+				$.get("${ctx}/sys/user/logout?loginName=" + loginName +"&logoutTime=" + endTime,function(data){
+				});
+			});
 		});
 		// <c:if test="${tabmode eq '1'}"> 添加一个页签
 		function addTab($this, refresh){
@@ -168,7 +175,8 @@
 							<li><a href="${ctx}/oa/oaNotify/self" target="mainFrame"><i class="icon-bell"></i>&nbsp;  我的通知 <span id="notifyNum2" class="label label-info hide"></span></a></li>
 						</ul>
 					</li>
-					<li><a href="${ctx}/logout" title="退出登录">退出</a></li>
+					<li><a href="${ctx}/logout" title="退出登录" id="logout">退出</a></li>
+					<li style="display: none;" id="loginName">${name }</li>
 					<li>&nbsp;</li>
 				</ul>
 				<%-- <c:if test="${cookie.theme.value eq 'cerulean'}">
