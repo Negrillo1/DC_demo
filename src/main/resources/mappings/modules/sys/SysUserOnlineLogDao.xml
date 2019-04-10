@@ -26,6 +26,7 @@
 		<include refid="sysUserOnlineLogJoins"/>
 		WHERE a.id = #{id}
 	</select>
+	<!-- 根据用户名或登录日期获取用户 -->
 	<select id="findBy" resultType="SysUserOnlineLog">
 		SELECT 
 			<include refid="sysUserOnlineLogColumns"/>

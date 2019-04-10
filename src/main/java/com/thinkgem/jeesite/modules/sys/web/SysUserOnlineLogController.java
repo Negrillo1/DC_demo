@@ -3,6 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.sys.web;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +21,9 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.sys.entity.SysUserOnlineLog;
+import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SysUserOnlineLogService;
+import com.thinkgem.jeesite.modules.sys.service.SystemService;
 
 /**
  * 用户在线记录Controller
@@ -33,6 +36,8 @@ public class SysUserOnlineLogController extends BaseController {
 
 	@Autowired
 	private SysUserOnlineLogService sysUserOnlineLogService;
+	@Autowired
+	private SystemService systemService;
 	
 	@ModelAttribute
 	public SysUserOnlineLog get(@RequestParam(required=false) String id) {
@@ -78,6 +83,26 @@ public class SysUserOnlineLogController extends BaseController {
 		sysUserOnlineLogService.delete(sysUserOnlineLog);
 		addMessage(redirectAttributes, "删除保存&ldquo;用户在线日志表&rdquo;成功成功");
 		return "redirect:"+Global.getAdminPath()+"/sys/sysUserOnlineLog/?repage";
+	}
+	/**
+	 * 
+	 * @version:  
+	 * @Description: 在线时长List
+	 * @author: ljk  
+	 * @date: 2019年4月9日 下午2:31:29
+	 * @param: @param sysUserOnlineLog
+	 * @param: @param request
+	 * @param: @param response
+	 * @param: @param model
+	 * @param: @return      
+	 * @return: String
+	 */
+	@RequiresPermissions("sys:sysUserOnlineLog:view")
+	@RequestMapping(value = "onlineTimeList")
+	public String onlineTimeList(User user,SysUserOnlineLog sysUserOnlineLog, HttpServletRequest request, HttpServletResponse response, Model model) {
+		List<User> list = systemService.findUser(user);
+		model.addAttribute("list",list);
+		return "modules/sys/onlineTimeList";
 	}
 
 }

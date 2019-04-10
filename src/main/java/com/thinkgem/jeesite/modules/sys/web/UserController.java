@@ -127,7 +127,7 @@ public class UserController extends BaseController {
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = "logout")
 	@ResponseBody
-	public void logout(HttpServletRequest request,User user, Model model) {
+	public void logout(HttpServletRequest request, Model model) {
 		Principal principal = UserUtils.getPrincipal();
 		String loginName = principal.getLoginName();
 		long loginTime = (Long)request.getSession().getServletContext().getAttribute(loginName);
@@ -141,7 +141,13 @@ public class UserController extends BaseController {
 		long hour = (between % 0x15180L) / 3600L;
 		long minute = (between % 3600L) / 60L;
 		double onlineHours = (double)(day * 24L + hour) + (double)minute / 60F;
-		System.out.println(hour);
+		User u = new User();
+		u.setLoginName(loginName);
+		List<User> list = systemService.findUser(u);
+		User user = list.get(0);
+		double time = user.getOnlineTime() + onlineHours;
+		user.setOnlineTime(time);
+		systemService.updateUserInfo(user);
 		soll.setLogoutTime(logoutTime);
 		soll.setOnlineHours(onlineHours);
 		sysUserOnlineLogService.save(soll);
