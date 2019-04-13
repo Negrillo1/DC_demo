@@ -14,7 +14,7 @@
 				<th>在线总时长（h）</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody> 
 			<c:forEach items="${list}" var="userList">
 				<tr>
 					<td>${userList.loginName}</td>

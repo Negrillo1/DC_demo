@@ -3,6 +3,10 @@
  */
 package com.thinkgem.jeesite.modules.sys.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +54,17 @@ public class LogService extends CrudService<LogDao, Log> {
 		log.setPage(page);
 		page.setList(logDao.findLogin(log));
 		return page;
+	}
+	/**
+	 * @version: 
+	 * @Description: 过去x天登录情况
+	 * @author: ljk  
+	 * @date: 2019年4月13日 上午12:46s:44
+	 */
+	public List findLoginPast(int i) {
+		// TODO Auto-generated method stub
+		List list =  logDao.findLoginPast(i);	
+		return list;
 	}
 	
 }

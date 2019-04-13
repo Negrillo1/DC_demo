@@ -80,4 +80,11 @@
 		</if>
 		ORDER BY a.create_date DESC
 	</select>
+	<select id="findLoginPast" resultType="String" parameterType="Integer">
+		SELECT
+			CONCAT_WS(':',DATE_FORMAT(create_date,'%Y%m%d'),COUNT(*))
+		FROM sys_log
+		WHERE title = '系统登录'
+		GROUP BY DATE_FORMAT(create_date,'%Y%m%d') DESC LIMIT #{day}
+	</select>
 </mapper>

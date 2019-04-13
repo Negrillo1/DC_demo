@@ -25,7 +25,7 @@ public class ServletRquestListener implements ServletRequestListener{
 		// TODO Auto-generated method stub
 		userlist = (ArrayList<UserInfo>) arg0.getServletContext().getAttribute("userlist");
 		if(userlist==null)
-			userlist = new ArrayList<UserInfo>(); 
+		userlist = new ArrayList<UserInfo>(); 
 		HttpServletRequest req = (HttpServletRequest) arg0.getServletRequest();
 		String sessionid = req.getSession().getId();
 		if (SessionUtils.getUsersessionid(userlist, sessionid) == null) {

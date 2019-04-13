@@ -1,7 +1,8 @@
 package com.thinkgem.jeesite.modules.sys.web;
 
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,9 +45,17 @@ public class AnalysisController extends BaseController{
         model.addAttribute("page", page);
 		return "modules/sys/analysisList";
 	}
+	/**
+	 * @version: 
+	 * @Description: 登录情况图表 
+	 * @author: ljk  
+	 * @date: 2019年4月13日 上午12:42:35
+	 */
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = {"charts"})
 	public String charts(Log log, HttpServletRequest request, HttpServletResponse response, Model model) {
+		List list = (List) logService.findLoginPast(15);
+		model.addAttribute("list",list);
 		return "modules/sys/analysisCharts";
 	}
 	/**
