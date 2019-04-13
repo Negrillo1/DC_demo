@@ -71,4 +71,9 @@ public class AnalysisController extends BaseController{
 		model.addAttribute("userlist",userlist);
 		return "modules/sys/onlineUsers"; 
 	}
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = {"address"})
+	public String address() {
+		return "modules/sys/analysisAddress";
+	}
 }
