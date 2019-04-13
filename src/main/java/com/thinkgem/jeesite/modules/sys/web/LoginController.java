@@ -3,6 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.sys.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Map;
 
@@ -27,12 +28,17 @@ import com.thinkgem.jeesite.common.utils.CacheUtils;
 import com.thinkgem.jeesite.common.utils.CookieUtils;
 import com.thinkgem.jeesite.common.utils.IdGen;
 import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.utils.address.AddressUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.sys.entity.SysUserOnlineLog;
+import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.security.FormAuthenticationFilter;
 import com.thinkgem.jeesite.modules.sys.security.SystemAuthorizingRealm.Principal;
 import com.thinkgem.jeesite.modules.sys.service.SysUserOnlineLogService;
+import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+
+import net.sf.json.JSONObject;
 
 /**
  * 登录Controller
@@ -46,7 +52,8 @@ public class LoginController extends BaseController{
 	private SessionDAO sessionDAO;
 	@Autowired
 	private SysUserOnlineLogService sysUserOnlineLogService; 
-	
+	@Autowired
+	private SystemService systemService;
 	/**
 	 * 管理登录
 	 */
@@ -138,6 +145,24 @@ public class LoginController extends BaseController{
 	@RequestMapping(value = "${adminPath}")
 	public String index(HttpServletRequest request, HttpServletResponse response) {
 		Principal principal = UserUtils.getPrincipal();
+		
+		//根据用户ip设置登录城市
+		User user = UserUtils.getUser();
+		String ip = UserUtils.getUser().getLoginIp();
+		ip = "219.136.134.157";
+		String json_result = null;
+		try {
+			json_result = AddressUtils.getAddresses("ip="+ip, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JSONObject json = JSONObject.fromObject(json_result);
+		String city = JSONObject.fromObject(json.get("data")).get("city").toString();
+		if(StringUtils.isNotEmpty(city)) {
+			user.setCity(city);
+			systemService.updateUserInfo(user);
+		}
 		
 		//记录在线日志
 		String loginName = principal.getLoginName();
