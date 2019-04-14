@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.AddressDao">
+	<select id="getAddress" resultType="String">
+		SELECT user_name 
+		FROM user_address
+		WHERE user_name = #{username}
+	</select>
+	<update id="updateAddress">
+		UPDATE user_address
+		SET address = #{address}
+		WHERE user_name= #{username}
+	</update>
+	<insert id="insertAddress">
+		INSERT INTO user_address
+		(user_name,address) VALUES (#{username},#{address})
+	</insert>
+</mapper>

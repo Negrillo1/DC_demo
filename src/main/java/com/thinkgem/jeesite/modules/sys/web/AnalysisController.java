@@ -17,8 +17,10 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.sys.entity.Log;
 import com.thinkgem.jeesite.modules.sys.service.LogService;
+import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import com.thinkgem.jeesite.modules.sys.utils.UserInfo;
 
+import net.sf.json.JSONArray;
 
 /**
  * @version: 
@@ -32,6 +34,8 @@ public class AnalysisController extends BaseController{
 	
 	@Autowired
 	private LogService logService;
+	@Autowired
+	private SystemService systemService;
 	
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = {"index"})
@@ -71,9 +75,22 @@ public class AnalysisController extends BaseController{
 		model.addAttribute("userlist",userlist);
 		return "modules/sys/onlineUsers"; 
 	}
+	/**
+	 * @version: 
+	 * @Description: 查询用户地区  
+	 * @author: ljk  
+	 * @date: 2019年4月14日 上午5:41:12
+	 */
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = {"address"})
-	public String address() {
+	public String address(Model model) {
+		List<Map<String,Integer>> listMaps = systemService.getUserAddress();
+		JSONArray mapJson = JSONArray.fromObject(listMaps);
+		
+		/*model.addAttribute("mapJson",mapJson);	*/	
+		String listStr = mapJson.toString();
+        listStr = listStr.replace("\"name\"", "name").replace("\"value\"", "value");
+		model.addAttribute("listStr",listStr);
 		return "modules/sys/analysisAddress";
 	}
 }

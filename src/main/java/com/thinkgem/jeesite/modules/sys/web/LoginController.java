@@ -27,11 +27,10 @@ import com.thinkgem.jeesite.common.servlet.ValidateCodeServlet;
 import com.thinkgem.jeesite.common.utils.CacheUtils;
 import com.thinkgem.jeesite.common.utils.CookieUtils;
 import com.thinkgem.jeesite.common.utils.IdGen;
+
 import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.common.utils.address.AddressUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.sys.entity.SysUserOnlineLog;
-import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.security.FormAuthenticationFilter;
 import com.thinkgem.jeesite.modules.sys.security.SystemAuthorizingRealm.Principal;
 import com.thinkgem.jeesite.modules.sys.service.SysUserOnlineLogService;
@@ -147,8 +146,9 @@ public class LoginController extends BaseController{
 		Principal principal = UserUtils.getPrincipal();
 		
 		//根据用户ip设置登录城市
-		User user = UserUtils.getUser();
+		/*User user = UserUtils.getUser();
 		String ip = UserUtils.getUser().getLoginIp();
+		ip = IpUtils.getRemoteIp(request);
 		ip = "219.136.134.157";
 		String json_result = null;
 		try {
@@ -162,8 +162,16 @@ public class LoginController extends BaseController{
 		if(StringUtils.isNotEmpty(city)) {
 			user.setCity(city);
 			systemService.updateUserInfo(user);
+		}*/
+		String username = UserUtils.getPrincipal().getLoginName();
+		String ip = "219.136.134.157";
+		try {
+			//保存登录地址
+			systemService.setUserAddress(username, ip);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
 		//记录在线日志
 		String loginName = principal.getLoginName();
 		Date loginTime = new Date();

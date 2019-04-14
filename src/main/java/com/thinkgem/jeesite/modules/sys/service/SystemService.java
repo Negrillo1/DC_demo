@@ -3,10 +3,12 @@
  */
 package com.thinkgem.jeesite.modules.sys.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.identity.Group;
@@ -25,7 +27,9 @@ import com.thinkgem.jeesite.common.service.ServiceException;
 import com.thinkgem.jeesite.common.utils.CacheUtils;
 import com.thinkgem.jeesite.common.utils.Encodes;
 import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.utils.address.AddressUtils;
 import com.thinkgem.jeesite.common.web.Servlets;
+import com.thinkgem.jeesite.modules.sys.dao.AddressDao;
 import com.thinkgem.jeesite.modules.sys.dao.MenuDao;
 import com.thinkgem.jeesite.modules.sys.dao.RoleDao;
 import com.thinkgem.jeesite.modules.sys.dao.UserDao;
@@ -36,6 +40,8 @@ import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.security.SystemAuthorizingRealm;
 import com.thinkgem.jeesite.modules.sys.utils.LogUtils;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+
+import net.sf.json.JSONObject;
 
 /**
  * 系统管理，安全相关实体的管理类,包括用户、角色、菜单.
@@ -60,6 +66,8 @@ public class SystemService extends BaseService implements InitializingBean {
 	private SessionDAO sessionDao;
 	@Autowired
 	private SystemAuthorizingRealm systemRealm;
+	@Autowired
+	private AddressDao addressDao;
 	
 	public SessionDAO getSessionDao() {
 		return sessionDao;
@@ -549,7 +557,37 @@ public class SystemService extends BaseService implements InitializingBean {
 			identityService.deleteUser(userId);
 		}
 	}
-	
+	/**
+	 * @version: 
+	 * @Description: 获取用户登录地区 
+	 * @author: ljk  
+	 * @date: 2019年4月14日 上午5:45:12
+	 */
+	public List<Map<String,Integer>> getUserAddress() {
+		List map = userDao.getUserAddress();
+		return map;
+	}
+	/**
+	 * @version: 
+	 * @Description:  设置用户地址
+	 * @author: ljk  
+	 * @date: 2019年4月14日 下午10:04:51
+	 */
+	@Transactional(readOnly = false)
+	public void setUserAddress(String username,String ip) throws UnsupportedEncodingException {
+		if(username != null) {
+			String user_name = addressDao.getAddress(username);
+			String json_result = AddressUtils.getAddresses("ip="+ip, "utf-8");
+			JSONObject json = JSONObject.fromObject(json_result);
+			String city = json.getString("city");
+			city = city.replace("市", "");
+			if(user_name == null) {
+				addressDao.insertAddress(username,city);
+			} else {
+				addressDao.updateAddress(username, city);
+			}
+		}
+	}
 	///////////////// Synchronized to the Activiti end //////////////////
 	
 }

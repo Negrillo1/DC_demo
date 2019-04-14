@@ -37,7 +37,8 @@ public class AddressUtils {
 	public static String getAddresses(String content, String encodingString)
 			throws UnsupportedEncodingException {
 		// 这里调用淘宝API
-		String urlStr = "http://ip.taobao.com/service/getIpInfo.php";
+		String key = "7f9f47a97732fce2dc0bead55ba26a19";
+		String urlStr = "https://restapi.amap.com/v3/ip?output=json&key=" + key;
 		// 从http://whois.pconline.com.cn取得IP所在的省市区信息
 		String returnStr = getResult(urlStr, content, encodingString);
 		if (returnStr != null) {
@@ -174,7 +175,7 @@ public class AddressUtils {
 	public static void main(String[] args) {
 		AddressUtils addressUtils = new AddressUtils();
 		// 测试ip 219.136.134.157 中国=华南=广东省=广州市=越秀区=电信
-		String ip = "122.49.20.248";
+		String ip = "122.49.20.24";
 		String address = "";
 		try {
 			address = addressUtils.getAddresses("ip="+ip, "utf-8");
