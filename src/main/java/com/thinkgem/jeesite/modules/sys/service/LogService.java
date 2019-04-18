@@ -3,7 +3,9 @@
  */
 package com.thinkgem.jeesite.modules.sys.service;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +67,22 @@ public class LogService extends CrudService<LogDao, Log> {
 		// TODO Auto-generated method stub
 		List list =  logDao.findLoginPast(i);	
 		return list;
+	}
+	/**
+	 * @version: 
+	 * @Description: 查询某天各时间段登录情况 
+	 * @author: ljk  
+	 * @date: 2019年4月15日 上午12:46:51
+	 */
+	public List<Map<String,String>> findLoginHor(String date) {
+		// TODO Auto-generated method stub
+		if(date == null) {
+			Date d = new Date();
+			DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+			date=format.format(d).toString();
+		}
+		List map = logDao.findLoginHor(date);
+		return map;
 	}
 	
 }

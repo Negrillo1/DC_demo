@@ -93,4 +93,19 @@ public class AnalysisController extends BaseController{
 		model.addAttribute("listStr",listStr);
 		return "modules/sys/analysisAddress";
 	}
+	/**
+	 * @version: 
+	 * @Description: 时段登录分析  
+	 * @author: ljk  
+	 * @date: 2019年4月14日 下午11:46:51
+	 */
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = {"loginHor"})
+	public String loginHor(Model model,HttpServletRequest request) {
+		String date = request.getParameter("date");
+		List listMaps = logService.findLoginHor(date);
+		model.addAttribute("listMaps", listMaps);
+		model.addAttribute("date", date);
+		return "modules/sys/loginHor";
+	}
 }
