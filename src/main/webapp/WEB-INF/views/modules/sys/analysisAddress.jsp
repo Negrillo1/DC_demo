@@ -14,7 +14,7 @@
 //设置数据
 
 var listStr = '${listStr}';
-alert(listStr);
+
 var geoCoordMap = {
 "海门":[121.15,31.89],
 "鄂尔多斯":[109.781327,39.608266],

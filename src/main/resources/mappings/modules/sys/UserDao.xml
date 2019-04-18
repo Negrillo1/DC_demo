@@ -81,6 +81,7 @@
 		a.update_date,
 		a.del_flag,
 		a.online_time,
+		a.city,
     	c.name AS "company.name",
     	c.parent_id AS "company.parent.id",
     	c.parent_ids AS "company.parentIds",
@@ -316,7 +317,8 @@
 			update_date = #{updateDate}, 
 			remarks = #{remarks},
 			photo = #{photo},
-			online_time = #{onlineTime}
+			online_time = #{onlineTime},
+			city = #{city}
 		WHERE id = #{id}
 	</update>
 	<!-- 禁用用户 -->
@@ -346,5 +348,10 @@
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
-	
+	<!-- 查询用户地区 -->
+	<select id="getUserAddress" resultType="map">
+		SELECT address name,COUNT(*) value
+		FROM user_address
+		GROUP BY address
+	</select>
 </mapper>
