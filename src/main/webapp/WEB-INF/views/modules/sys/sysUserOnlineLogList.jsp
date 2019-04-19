@@ -23,12 +23,16 @@
 		<li class="active"><a href="${ctx}/sys/sysUserOnlineLog/onlineTimeList">在线时长统计</a>
 		<%-- <shiro:hasPermission name="sys:sysUserOnlineLog:edit"><li><a href="${ctx}/sys/sysUserOnlineLog/form">保存&ldquo;用户在线日志表&rdquo;成功添加</a></li></shiro:hasPermission> --%>
 	</ul>
-	<form:form id="searchForm" modelAttribute="sysUserOnlineLog" action="${ctx}/sys/sysUserOnlineLog/" method="post" class="breadcrumb form-search" >
+	<form:form id="searchForm" modelAttribute="sysUserOnlineLog" action="${ctx}/sys/sysUserOnlineLog/list" method="post" class="breadcrumb form-search" >
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<div>
 			<lable>登录名：</lable><input id="loginName" name="loginName" type="text" maxlength="50" class="input-mini" value="${sysUserOnlineLog.loginName}"/>
-			<input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/>
+			<label>日期范围：&nbsp;</label><input id="beginDate" name="beginDate" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
+				value="<fmt:formatDate value="${log.beginDate}" pattern="yyyy-MM-dd"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
+			<label>&nbsp;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input id="endDate" name="endDate" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
+				value="<fmt:formatDate value="${log.endDate}" pattern="yyyy-MM-dd"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>&nbsp;&nbsp;
+				<input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/>
 		</div>
 		
 

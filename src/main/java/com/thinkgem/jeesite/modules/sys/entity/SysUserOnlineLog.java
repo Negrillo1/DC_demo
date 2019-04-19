@@ -23,6 +23,9 @@ public class SysUserOnlineLog extends DataEntity<SysUserOnlineLog> {
 	private Date upadteDate;		// upadte_date
 	private Double onlineHours;		// online_hours
 	
+	private Date beginDate;		// 开始日期
+	private Date endDate;		// 结束日期
+	
 	public SysUserOnlineLog() {
 		super();
 	}
@@ -73,6 +76,22 @@ public class SysUserOnlineLog extends DataEntity<SysUserOnlineLog> {
 
 	public void setOnlineHours(Double onlineHours) {
 		this.onlineHours = onlineHours;
+	}
+
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	
 }
