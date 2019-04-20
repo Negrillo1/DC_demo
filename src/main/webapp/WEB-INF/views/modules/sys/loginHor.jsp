@@ -5,7 +5,7 @@
 <head>
 <meta name="decorator" content="default"/>
 <script src="${ctxStatic}/echarts/echarts.min.js"></script>
-<title>Insert title here</title>
+<title>登录时段分析</title>
 <script type="text/javascript">
 	
 	
