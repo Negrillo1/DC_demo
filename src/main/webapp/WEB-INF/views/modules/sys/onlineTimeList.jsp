@@ -5,6 +5,14 @@
 <head>
 	<title>在线时长统计</title>
 	<meta name="decorator" content="default"/>
+	<script type="text/javascript">
+	function page(n,s){
+		$("#pageNo").val(n);
+		$("#pageSize").val(s);
+		$("#searchForm").submit();
+    	return false;
+    }
+	</script>
 </head>
 <body>
 	<ul class="nav nav-tabs">
@@ -35,9 +43,9 @@
 					<td>${userList.loginName}</td>
 					<td>${userList.onlineTime}</td>
 				</tr>
-			</c:forEach>
-			
+			</c:forEach>	
 		</tbody>
 	</table>
+	<div class="pagination">${page}</div>
 </body>
 </html>
