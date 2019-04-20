@@ -37,6 +37,7 @@ import com.thinkgem.jeesite.modules.sys.entity.Menu;
 import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.entity.Role;
 import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.entity.UserAddress;
 import com.thinkgem.jeesite.modules.sys.security.SystemAuthorizingRealm;
 import com.thinkgem.jeesite.modules.sys.utils.LogUtils;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
@@ -569,6 +570,17 @@ public class SystemService extends BaseService implements InitializingBean {
 	}
 	/**
 	 * @version: 
+	 * @Description:  获取用户地区列表
+	 * @author: ljk  
+	 * @date: 2019年4月21日 上午5:24:08
+	 */
+	public Page<UserAddress> getUserAddressList(Page<UserAddress> page,UserAddress userAddress) {
+		userAddress.setPage(page);
+		page.setList(addressDao.getAddressList(userAddress));
+		return page;
+	}
+	/**
+	 * @version: 
 	 * @Description:  设置用户地址
 	 * @author: ljk  
 	 * @date: 2019年4月14日 下午10:04:51
@@ -589,5 +601,6 @@ public class SystemService extends BaseService implements InitializingBean {
 		}
 	}
 	///////////////// Synchronized to the Activiti end //////////////////
+	
 	
 }

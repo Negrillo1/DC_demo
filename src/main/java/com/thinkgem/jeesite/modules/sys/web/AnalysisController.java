@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.sys.entity.Log;
+import com.thinkgem.jeesite.modules.sys.entity.UserAddress;
 import com.thinkgem.jeesite.modules.sys.service.LogService;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import com.thinkgem.jeesite.modules.sys.utils.UserInfo;
@@ -77,7 +78,7 @@ public class AnalysisController extends BaseController{
 	}
 	/**
 	 * @version: 
-	 * @Description: 查询用户地区  
+	 * @Description: 查询用户地区图表  
 	 * @author: ljk  
 	 * @date: 2019年4月14日 上午5:41:12
 	 */
@@ -95,6 +96,19 @@ public class AnalysisController extends BaseController{
 	}
 	/**
 	 * @version: 
+	 * @Description:  查询用户地区列表
+	 * @author: ljk  
+	 * @date: 2019年4月20日 下午10:27:40
+	 */
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = {"addressList"})
+	public String addressList(UserAddress userAddress,Model model,HttpServletRequest request, HttpServletResponse response) {
+		Page<UserAddress> page = systemService.getUserAddressList(new Page<UserAddress>(request,response),userAddress);
+		model.addAttribute("page",page);
+		return "modules/sys/addressList";
+	}
+	/**
+	 * @version: 
 	 * @Description: 时段登录分析  
 	 * @author: ljk  
 	 * @date: 2019年4月14日 下午11:46:51
@@ -107,5 +121,27 @@ public class AnalysisController extends BaseController{
 		model.addAttribute("listMaps", listMaps);
 		model.addAttribute("date", date);
 		return "modules/sys/loginHor";
+	}
+	/**
+	 * @version: 
+	 * @Description:  累计时长分析
+	 * @author: ljk  
+	 * @date: 2019年4月19日 下午3:22:54
+	 */
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = {"cumulativeDuration"})
+	public String cumulativeDuration(Model model) {
+		return "modules/sys/cumulativeDuration";
+	}
+	/**
+	 * @version: 
+	 * @Description: 板块访问  
+	 * @author: ljk  
+	 * @date: 2019年4月20日 下午5:57:30
+	 */
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = {"plateAccess"})
+	public String plateAccess(Model model) {
+		return "modules/sys/plateAccess";
 	}
 }
