@@ -42,16 +42,16 @@ html body{
     overflow: scroll;
     padding:0;
 }
-.dropUl::-webkit-scrollbar {/*婊氬姩鏉℃暣浣撴牱寮�*/
-    width: 5px;     /*楂樺鍒嗗埆瀵瑰簲妯珫婊氬姩鏉＄殑灏哄*/
+.dropUl::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 5px;     /*高宽分别对应横竖滚动条的尺寸*/
     height: 0;
 }
-.dropUl::-webkit-scrollbar-thumb {/*婊氬姩鏉￠噷闈㈠皬鏂瑰潡*/
+.dropUl::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
     border-radius: 2px;
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
     background: #d1d4db;
 }
-.dropUl::-webkit-scrollbar-track {/*婊氬姩鏉￠噷闈㈣建閬�*/
+.dropUl::-webkit-scrollbar-track {/*滚动条里面轨道*/
     -webkit-box-shadow: none;
     border-radius: 0px;
     /*background: #EDEDED;*/
@@ -89,5 +89,4 @@ html body{
     height:300px;
     float: left;
     display: none;
-    position: absolute;
 }
