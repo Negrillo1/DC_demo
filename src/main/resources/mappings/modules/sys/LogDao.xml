@@ -87,4 +87,15 @@
 		WHERE title = '系统登录'
 		GROUP BY DATE_FORMAT(create_date,'%Y%m%d') DESC LIMIT #{day}
 	</select>
+	<select id="findLoginHor" resultType="String" parameterType="String" >
+		SELECT CASE WHEN o.count is NULL THEN 0 ELSE o.count end AS number FROM 
+			(SELECT COUNT(*) AS count,HOUR (s.create_date) AS ho
+			FROM sys_log s
+			WHERE s.create_date <![CDATA[>=]]> #{date}
+			GROUP BY HOUR (s.create_date))o
+		RIGHT JOIN
+			(SELECT TOOL_ID,HOURS FROM date_tool WHERE HOURS IS NOT NULL)d
+		ON o.ho=d.hours
+		GROUP BY d.TOOL_ID
+	</select>
 </mapper>

@@ -46,8 +46,11 @@
 		FROM sys_user_online_log a
 		<include refid="sysUserOnlineLogJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL}
+			a.del_flag = #{DEL_FLAG_NORMAL} AND a.create_date BETWEEN #{beginDate} AND #{endDate}
 		</where>
+		<if test="loginName != null and loginName != ''">
+			AND a.login_name LIKE CONCAT('%', #{loginName}, '%')
+		</if>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
 				ORDER BY ${page.orderBy}

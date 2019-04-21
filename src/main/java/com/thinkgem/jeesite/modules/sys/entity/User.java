@@ -53,6 +53,7 @@ public class User extends DataEntity<User> {
 	private Role role;	// 根据角色查询用户条件
 	
 	private double onlineTime;  // 用户在线总时间
+	private String city; //登录所在城市
 	private List<Role> roleList = Lists.newArrayList(); // 拥有角色列表
 
 	public User() {
@@ -75,6 +76,14 @@ public class User extends DataEntity<User> {
 	}
 	
 	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public double getOnlineTime() {
 		return onlineTime;
 	}

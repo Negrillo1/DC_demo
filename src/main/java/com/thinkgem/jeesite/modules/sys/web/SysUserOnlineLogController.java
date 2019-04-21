@@ -99,8 +99,10 @@ public class SysUserOnlineLogController extends BaseController {
 	 */
 	@RequiresPermissions("sys:sysUserOnlineLog:view")
 	@RequestMapping(value = "onlineTimeList")
-	public String onlineTimeList(User user,SysUserOnlineLog sysUserOnlineLog, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String onlineTimeList(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<User> page = systemService.findUser(new Page<User>(request, response), user);
 		List<User> list = systemService.findUser(user);
+		model.addAttribute("page",page);
 		model.addAttribute("list",list);
 		return "modules/sys/onlineTimeList";
 	}

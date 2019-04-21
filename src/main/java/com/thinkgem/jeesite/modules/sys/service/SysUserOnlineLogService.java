@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
+import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.modules.sys.entity.SysUserOnlineLog;
 import com.thinkgem.jeesite.modules.sys.dao.SysUserOnlineLogDao;
 
@@ -34,6 +35,12 @@ public class SysUserOnlineLogService extends CrudService<SysUserOnlineLogDao, Sy
 	}
 	
 	public Page<SysUserOnlineLog> findPage(Page<SysUserOnlineLog> page, SysUserOnlineLog sysUserOnlineLog) {
+		if(sysUserOnlineLog.getBeginDate() == null) {
+			sysUserOnlineLog.setBeginDate(DateUtils.setDays(DateUtils.parseDate(DateUtils.getDate()), 1));
+		}
+		if (sysUserOnlineLog.getEndDate() == null){
+			sysUserOnlineLog.setEndDate(DateUtils.addMonths(sysUserOnlineLog.getBeginDate(), 1));
+		}
 		return super.findPage(page, sysUserOnlineLog);
 	}
 	

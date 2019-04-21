@@ -4,6 +4,7 @@
 package com.thinkgem.jeesite.modules.sys.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
@@ -78,5 +79,12 @@ public interface UserDao extends CrudDao<User> {
 	 * @date: 2019年3月29日 上午2:08:30
 	 */
 	public int disable(User user);
+	/**
+	 * @version: 
+	 * @Description: 查询用户地区信息  
+	 * @author: ljk  
+	 * @date: 2019年4月14日 上午5:49:17
+	 */
+	public List getUserAddress();
 
 }
