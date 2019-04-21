@@ -126,7 +126,6 @@ public class UserController extends BaseController {
 	 */
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = "logout")
-	@ResponseBody
 	public void logout(HttpServletRequest request, Model model) {
 		Principal principal = UserUtils.getPrincipal();
 		String loginName = principal.getLoginName();
