@@ -7,7 +7,6 @@
 <script src="${ctxStatic}/echarts/echarts.min.js"></script>
 <script src="${ctxStatic}/echarts/china.js"></script>
 <title>登录地区</title>
-<script src="${ctxStatic}/echarts/echarts.min.js"></script>
 </head>
 <body>
 <ul class="nav nav-tabs">
