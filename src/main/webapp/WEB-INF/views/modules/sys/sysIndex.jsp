@@ -14,6 +14,17 @@
 		#footer, #footer a {color:#999;} #left{overflow-x:hidden;overflow-y:auto;} #left .collapse{position:static;}
 		#userControl>li>a{/*color:#fff;*/text-shadow:none;} #userControl>li>a:hover, #user #userControl>li.open>a{background:transparent;}
 	</style>
+	<script type="text/javascript">  
+    
+    window.onbeforeunload = onbeforeunload_handler;   
+    function onbeforeunload_handler(){  
+    	var loginName = $("#loginName").text(); 
+		var endTime = new Date();
+		$.get("${ctx}/sys/user/logout?loginName=" + loginName +"&logoutTime=" + endTime,function(data){
+		});
+    }    
+	</script> 
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			// <c:if test="${tabmode eq '1'}"> 初始化页签

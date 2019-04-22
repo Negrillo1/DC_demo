@@ -10,7 +10,7 @@
 $(document).ready(function() {
 	$("#cityName").bind('DOMNodeInserted',function(e) {
 		var cityName = $("#cityName").html();
-		$("#city").val(cityName);
+		$("#address").val(cityName);
 	});
 });	
 		function page(n,s){
@@ -32,9 +32,9 @@ $(document).ready(function() {
 		<div>
 		</div>
 		<div style="margin-top:8px;">
+		<label>用户地区：&nbsp;</label>&nbsp;&nbsp;<input id="address" name="address" type="text" maxlength="50" data-toggle="city-picker" class="citySelect" value="${log.title}"/>&nbsp;&nbsp;
 		<label>用户名：&nbsp;</label><input id="userName" name="userName" type="text" maxlength="50" class="input-mini" value="${log.title}"/>&nbsp;&nbsp;
-			<label>用户地区：&nbsp;</label>&nbsp;&nbsp;<input id="address" name="address" type="text" maxlength="50" data-toggle="city-picker" class="citySelect" value="${log.title}"/>&nbsp;&nbsp;
-			<input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/>&nbsp;&nbsp;
+		<input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/>&nbsp;&nbsp;
     
     <div class="citySelect" style="display: none;">
         <span id="cityName" class="cityName">北京</span>
