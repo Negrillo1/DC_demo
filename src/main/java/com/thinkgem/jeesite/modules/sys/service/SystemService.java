@@ -601,6 +601,26 @@ public class SystemService extends BaseService implements InitializingBean {
 		}
 	}
 	///////////////// Synchronized to the Activiti end //////////////////
+	/**
+	 * @version: 
+	 * @Description:  统计用户性别
+	 * @author: ljk  
+	 * @date: 2019年4月24日 上午3:59:08
+	 */
+	public List<Map<String,Integer>> findUserSex() {
+		List<Map<String,Integer>> map = userDao.findUserSex();
+		return map;
+	}
+	/**
+	 * @version: 
+	 * @Description:  统计用户年龄
+	 * @author: ljk  
+	 * @date: 2019年4月24日 上午4:00:00
+	 */
+	public List<Map<String, Integer>> findUserAge() {
+		List<Map<String,Integer>> map = userDao.findUserAge();
+		return map;
+	}
 	
 	
 }

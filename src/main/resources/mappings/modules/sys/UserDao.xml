@@ -354,4 +354,15 @@
 		FROM user_address
 		GROUP BY address
 	</select>
+	<!-- 统计用户性别 -->
+	<select id="findUserSex" resultType="map">
+		SELECT CASE WHEN s.sex = 1 THEN '女' WHEN sex = 0 THEN '男' END AS 'name',COUNT(s.sex) AS 'value' 
+		FROM school_user s
+		GROUP BY s.sex
+	</select>
+	<select id="findUserAge" resultType="map">
+		SELECT s.age AS name, COUNT(s.age) AS value
+		FROM school_user s
+		GROUP BY s.age
+	</select>
 </mapper>

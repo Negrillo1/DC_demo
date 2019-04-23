@@ -144,4 +144,25 @@ public class AnalysisController extends BaseController{
 	public String plateAccess(Model model) {
 		return "modules/sys/plateAccess";
 	}
+	/**
+	 * @version: 
+	 * @Description: 学生基本信息
+	 * @author: ljk  
+	 * @date: 2019年4月24日 上午3:10:20
+	 */
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = {"stuInfo"})
+	public String stuInfo(Model model) {
+		List<Map<String,Integer>> listMaps = systemService.findUserSex();
+		List<Map<String,Integer>> ageMaps = systemService.findUserAge();
+		JSONArray mapJson = JSONArray.fromObject(listMaps);
+		JSONArray ageJson = JSONArray.fromObject(ageMaps);
+		String listStr = mapJson.toString();
+		String ageString = mapJson.toString();
+		listStr = listStr.replace("\"name\"", "name").replace("\"value\"", "value");
+		ageString = ageString.replace("\"name\"", "name").replace("\"value\"", "value");
+		model.addAttribute("ageString",ageString);
+		model.addAttribute("listStr",listStr);
+		return "modules/sys/stuInfo";
+	}
 }

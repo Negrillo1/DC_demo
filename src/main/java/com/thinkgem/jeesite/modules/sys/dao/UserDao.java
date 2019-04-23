@@ -86,5 +86,19 @@ public interface UserDao extends CrudDao<User> {
 	 * @date: 2019年4月14日 上午5:49:17
 	 */
 	public List getUserAddress();
+	/**
+	 * @version: 
+	 * @Description: 统计用户性别 
+	 * @author: ljk  
+	 * @date: 2019年4月24日 上午3:18:19
+	 */
+	public List<Map<String,Integer>> findUserSex();
+	/**
+	 * @version: 
+	 * @Description: 统计用户年龄 
+	 * @author: ljk  
+	 * @date: 2019年4月24日 上午4:01:08
+	 */
+	public List<Map<String, Integer>> findUserAge();
 
 }
