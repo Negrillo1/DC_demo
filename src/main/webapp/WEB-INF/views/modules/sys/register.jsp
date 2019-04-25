@@ -4,32 +4,29 @@
 <html>
 <head>
 <meta name="decorator" content="default"/>
-<title>图表</title>
+<title>学生注册分析</title>
 <script src="${ctxStatic}/echarts/echarts.min.js"></script>
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/sys/analysis/list">登录日志</a></li>
-		<li class="active"><a href="${ctx}/sys/analysis/charts">图表</a></li>
+		<li class="active"><a href="${ctx}/sys/analysis/register">注册情况</a></li>
+		<li><a href="${ctx}/sys/analysis/registerList">注册列表</a></li>
 	</ul>
-		<div id="login_num" style="height:400px; "></div>
-	
-    <script type="text/javascript">
-    	//整理数据
-    	var list = "${list}";
-    	list = list.substring(0,(list.length)-1);
+	<div id="register_num" style="height:400px; "></div>
+	<script type="text/javascript">
+		//整理数据
+		var list = "${list}";
+		list = list.substring(0,(list.length)-1);
     	list = list.split(/-|:|,/);
     	for(var i = 0; i < list.length; i = i+2) {
     		list[i] = list[i].substring(5,9);
     		list[i] = list[i].slice(0,2) + '/' + list[i].slice(2);
     		
     	}
-        // 基于准备好的dom，初始化echarts实例
-        var loginLine = echarts.init(document.getElementById('login_num'));
-        // 指定图表的配置项和数据
-        var loginOption = {
+    	var registerLine = echarts.init(document.getElementById('register_num'));
+    	var registerOption = {
         	    title: {
-        	        text: '过去15天登录情况',
+        	        text: '过去15天注册情况',
         	        left: 'center'
         	    },
         	    tooltip : {
@@ -69,7 +66,7 @@
         	    ],
         	    series : [
         	        {
-        	            name:'登录次数',
+        	            name:'注册用户量',
         	            type:'line',
         	            stack: '总量',
         	            areaStyle: {},
@@ -79,9 +76,7 @@
         	};
 
         // 使用刚指定的配置项和数据显示图表。
-        loginLine.setOption(loginOption);
-    </script>
+        registerLine.setOption(registerOption);
+	</script>
 </body>
-
 </html>
-

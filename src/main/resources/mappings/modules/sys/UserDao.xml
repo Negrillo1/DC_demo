@@ -360,9 +360,28 @@
 		FROM school_user s
 		GROUP BY s.sex
 	</select>
+	<!-- 统计用户年龄 -->
 	<select id="findUserAge" resultType="map">
 		SELECT s.age AS name, COUNT(s.age) AS value
 		FROM school_user s
 		GROUP BY s.age
+	</select>
+	<!-- 统计过去15天用户注册情况 -->
+	<select id="finRegisterPast" resultType="String" parameterType="Integer">
+		SELECT CONCAT_WS(':',DATE_FORMAT(s.create_time,'%Y%m%d'),COUNT(*))
+		FROM school_user s
+		GROUP BY DATE_FORMAT(s.create_time,'%Y%m%d') DESC LIMIT 15
+	</select>
+	<!-- 查询用户注册信息 -->
+	<select id="findRegisterList" resultType="SchoolUser">
+		SELECT s.user_name,s.sex,s.age,s.create_time
+		FROM school_user s
+		WHERE s.create_time BETWEEN #{beginDate} AND #{endDate}
+		<if test="userName != null and userName != ''">
+			AND s.user_name LIKE CONCAT('%',#{userName},'%')
+		</if>
+		<if test="sex != null and sex!= ''">
+			AND s.sex = #{sex}
+		</if>
 	</select>
 </mapper>

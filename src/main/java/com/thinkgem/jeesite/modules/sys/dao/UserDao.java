@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+import com.thinkgem.jeesite.modules.sys.entity.SchoolUser;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 
 /**
@@ -100,5 +101,19 @@ public interface UserDao extends CrudDao<User> {
 	 * @date: 2019年4月24日 上午4:01:08
 	 */
 	public List<Map<String, Integer>> findUserAge();
+	/**
+	 * @version: 
+	 * @Description: 统计过去15天用户注册情况
+	 * @author: ljk  
+	 * @date: 2019年4月25日 下午1:51:34
+	 */
+	public List<String> finRegisterPast(int i);
+	/**
+	 * @version: 
+	 * @Description:  查询学生注册列表
+	 * @author: ljk  
+	 * @date: 2019年4月25日 下午1:55:23
+	 */
+	public List<SchoolUser> findRegisterList(SchoolUser schoolUser);
 
 }

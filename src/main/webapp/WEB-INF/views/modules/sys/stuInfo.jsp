@@ -31,7 +31,7 @@
 	        show : true,
 	        feature : {
 	            mark : {show: true},
-	            dataView : {show: true, readOnly: false},
+	            dataView : {show: true, readOnly: true},
 	            magicType : {
 	                show: true, 
 	                type: ['pie', 'funnel'],
@@ -59,74 +59,66 @@
 	        }
 	    ]
 	};
-	var userAgeOption = {
-		    backgroundColor: '#2c343c',
-		    title: {
-		        text: '用户年龄分析',
-		        left: 'center',
-		        top: 20,
-		        textStyle: {
-		            color: '#ccc'
-		        }
+	var userAgeOption =  {
+			title : {
+		        text: '学生年龄比例',
+		        x:'center'
 		    },
-
-		    tooltip : {
+			tooltip: {
 		        trigger: 'item',
-		        formatter: "{a} <br/>{b} : {c} ({d}%)"
+		        formatter: "{a} <br/>{b}: {c} ({d}%)"
 		    },
-
-		    visualMap: {
-		        show: false,
-		        min: 80,
-		        max: 600,
-		        inRange: {
-		            colorLightness: [0, 1]
+		    legend: {
+		        orient: 'vertical',
+		        x: 'left',
+		        data:${ageString}
+		    },
+		    toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: true},
+		            dataView : {show: true, readOnly: true},
+		            magicType : {
+		                show: true, 
+		                type: ['pie', 'funnel'],
+		                option: {
+		                    funnel: {
+		                        x: '25%',
+		                        width: '50%',
+		                        funnelAlign: 'left',
+		                        max: 1548
+		                    }
+		                }
+		            },
+		            restore : {show: true},
+		            saveAsImage : {show: true}
 		        }
 		    },
-		    series : [
+		    series: [
 		        {
-		            name:'访问来源',
+		            name:'年龄比例',
 		            type:'pie',
-		            radius : '55%',
-		            center: ['50%', '50%'],
-		            data:[
-		                {value:335, name:'直接访问'},
-		                {value:310, name:'邮件营销'},
-		                {value:274, name:'联盟广告'},
-		                {value:235, name:'视频广告'},
-		                {value:400, name:'搜索引擎'}
-		            ].sort(function (a, b) { return a.value - b.value; }),
-		            roseType: 'radius',
+		            radius: ['50%', '70%'],
+		            avoidLabelOverlap: false,
 		            label: {
 		                normal: {
+		                    show: false,
+		                    position: 'center'
+		                },
+		                emphasis: {
+		                    show: true,
 		                    textStyle: {
-		                        color: 'rgba(255, 255, 255, 0.3)'
+		                        fontSize: '30',
+		                        fontWeight: 'bold'
 		                    }
 		                }
 		            },
 		            labelLine: {
 		                normal: {
-		                    lineStyle: {
-		                        color: 'rgba(255, 255, 255, 0.3)'
-		                    },
-		                    smooth: 0.2,
-		                    length: 10,
-		                    length2: 20
+		                    show: false
 		                }
 		            },
-		            itemStyle: {
-		                normal: {
-		                    color: '#c23531',
-		                    shadowBlur: 200,
-		                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-		                }
-		            },
-
-		            animationType: 'scale',
-		            animationEasing: 'elasticOut',
-		            animationDelay: function (idx) {
-		                return Math.random() * 200;
-		            }
+		            data:${ageString}
 		        }
 		    ]
 		};

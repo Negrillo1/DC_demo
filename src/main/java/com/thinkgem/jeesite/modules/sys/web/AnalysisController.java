@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.sys.entity.Log;
+import com.thinkgem.jeesite.modules.sys.entity.SchoolUser;
 import com.thinkgem.jeesite.modules.sys.entity.UserAddress;
 import com.thinkgem.jeesite.modules.sys.service.LogService;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
@@ -158,11 +159,37 @@ public class AnalysisController extends BaseController{
 		JSONArray mapJson = JSONArray.fromObject(listMaps);
 		JSONArray ageJson = JSONArray.fromObject(ageMaps);
 		String listStr = mapJson.toString();
-		String ageString = mapJson.toString();
+		String ageString = ageJson.toString();
 		listStr = listStr.replace("\"name\"", "name").replace("\"value\"", "value");
 		ageString = ageString.replace("\"name\"", "name").replace("\"value\"", "value");
 		model.addAttribute("ageString",ageString);
 		model.addAttribute("listStr",listStr);
 		return "modules/sys/stuInfo";
+	}
+	/**
+	 * @version: 
+	 * @Description: 统计过去15天用户注册  
+	 * @author: ljk  
+	 * @date: 2019年4月25日 上午10:32:21
+	 */
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = {"register"})
+	public String register(Model model) {
+		List<String> list = systemService.findRegisterPast(15);
+		model.addAttribute("list", list);
+		return "modules/sys/register";
+	}
+	/**
+	 * @version: 
+	 * @Description:  注册用户列表
+	 * @author: ljk  
+	 * @date: 2019年4月25日 下午12:28:48
+	 */
+	@RequiresPermissions("sys:user:view")
+	@RequestMapping(value = {"registerList"})
+	public String registerList(Model model,SchoolUser schoolUser,HttpServletRequest request,HttpServletResponse response) {
+		Page<SchoolUser> page = systemService.findRegisterList(new Page<SchoolUser>(request,response),schoolUser);
+		model.addAttribute("page", page);
+		return "modules/sys/registerList";
 	}
 }

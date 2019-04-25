@@ -25,6 +25,7 @@ import com.thinkgem.jeesite.common.security.shiro.session.SessionDAO;
 import com.thinkgem.jeesite.common.service.BaseService;
 import com.thinkgem.jeesite.common.service.ServiceException;
 import com.thinkgem.jeesite.common.utils.CacheUtils;
+import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.Encodes;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.utils.address.AddressUtils;
@@ -36,6 +37,7 @@ import com.thinkgem.jeesite.modules.sys.dao.UserDao;
 import com.thinkgem.jeesite.modules.sys.entity.Menu;
 import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.entity.Role;
+import com.thinkgem.jeesite.modules.sys.entity.SchoolUser;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.entity.UserAddress;
 import com.thinkgem.jeesite.modules.sys.security.SystemAuthorizingRealm;
@@ -620,6 +622,29 @@ public class SystemService extends BaseService implements InitializingBean {
 	public List<Map<String, Integer>> findUserAge() {
 		List<Map<String,Integer>> map = userDao.findUserAge();
 		return map;
+	}
+
+	public List findRegisterPast(int i) {
+		List<String> list = userDao.finRegisterPast(i);
+		return list;
+		
+	}
+	/**
+	 * @version: 
+	 * @Description:  查询学生注册列表 
+	 * @author: ljk  
+	 * @date: 2019年4月25日 下午3:23:46
+	 */
+	public Page<SchoolUser> findRegisterList(Page<SchoolUser> page, SchoolUser schoolUser) {
+		if (schoolUser.getBeginDate() == null){
+			schoolUser.setBeginDate(DateUtils.setDays(DateUtils.parseDate(DateUtils.getDate()), 1));
+		}
+		if (schoolUser.getEndDate() == null){
+			schoolUser.setEndDate(DateUtils.addMonths(schoolUser.getBeginDate(), 1));
+		}
+		schoolUser.setPage(page);
+		page.setList(userDao.findRegisterList(schoolUser));
+		return page;
 	}
 	
 	

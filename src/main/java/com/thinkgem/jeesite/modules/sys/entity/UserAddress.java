@@ -3,7 +3,12 @@ package com.thinkgem.jeesite.modules.sys.entity;
 import com.thinkgem.jeesite.common.persistence.DataEntity;
 import com.thinkgem.jeesite.common.supcan.annotation.treelist.cols.SupCol;
 import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
-
+/**
+ * @version: 
+ * @Description:  用户地区实体类
+ * @author: ljk  
+ * @date: 2019年4月25日 下午1:30:22
+ */
 public class UserAddress extends  DataEntity<UserAddress>{
 
 	private static final long serialVersionUID = 1L;
