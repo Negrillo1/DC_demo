@@ -16,7 +16,7 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/sys/sysUserOnlineLog/">用户在线日志表</a></li>
+		<li><a href="${ctx}/sys/sysUserOnlineLog/">用户在线日志表</a></li>
 		<li class="active"><a href="${ctx}/sys/sysUserOnlineLog/onlineTimeList">在线时长统计</a>
 		<%-- <shiro:hasPermission name="sys:sysUserOnlineLog:edit"><li><a href="${ctx}/sys/sysUserOnlineLog/form">保存&ldquo;用户在线日志表&rdquo;成功添加</a></li></shiro:hasPermission> --%>
 	</ul>

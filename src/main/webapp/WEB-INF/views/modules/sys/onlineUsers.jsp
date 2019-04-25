@@ -56,7 +56,10 @@
 </script>
 </head>
 <body>
-	<div class="hero-unit" style="text-align: center;">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="${ctx}/sys/analysis/onlineUsers">当前在线用户</a></li>
+	</ul>
+	<div class="hero-unit" style="text-align: center; background: #FEF8EF;">
 		<small id="date"></small><h1><%= application.getAttribute("numberCount") %></h1><small>在线用户</small>
 		<span id="second_show">0</span><small>秒之后更新数据</small>
 	</div>

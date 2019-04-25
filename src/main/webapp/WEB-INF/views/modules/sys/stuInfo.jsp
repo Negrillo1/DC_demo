@@ -5,14 +5,15 @@
 <head>
 <meta name="decorator" content="default"/>
 <script src="${ctxStatic}/echarts/echarts.min.js"></script>
+<script src="${ctxStatic}/echarts/vintage.js"></script>
 <title>学生基本信息</title>
 </head>
 <body>
 <div id="main" style="width: 100%; height: 500px;"></div>
 <div id="userAge" style="width: 100%; height: 500px;"></div>
 <script type="text/javascript">
-	var cumulativePie = echarts.init(document.getElementById('main'));
-	var userAgeBar = echarts.init(document.getElementById('userAge'));
+	var cumulativePie = echarts.init(document.getElementById('main'),'vintage');
+	var userAgeBar = echarts.init(document.getElementById('userAge'),'vintage');
 	var cumulativePieOption = {
 	    title : {
 	        text: '学生性别比例',

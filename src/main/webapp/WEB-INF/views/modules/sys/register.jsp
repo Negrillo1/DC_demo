@@ -6,6 +6,7 @@
 <meta name="decorator" content="default"/>
 <title>学生注册分析</title>
 <script src="${ctxStatic}/echarts/echarts.min.js"></script>
+<script src="${ctxStatic}/echarts/vintage.js"></script>
 </head>
 <body>
 	<ul class="nav nav-tabs">
@@ -23,7 +24,7 @@
     		list[i] = list[i].slice(0,2) + '/' + list[i].slice(2);
     		
     	}
-    	var registerLine = echarts.init(document.getElementById('register_num'));
+    	var registerLine = echarts.init(document.getElementById('register_num'),'vintage');
     	var registerOption = {
         	    title: {
         	        text: '过去15天注册情况',

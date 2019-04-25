@@ -5,6 +5,7 @@
 <head>
 <meta name="decorator" content="default"/>
 <script src="${ctxStatic}/echarts/echarts.min.js"></script>
+<script src="${ctxStatic}/echarts/vintage.js"></script>
 <title>登录时段分析</title>
 <script type="text/javascript">
 	
@@ -31,7 +32,7 @@
 		date = date.toLocaleDateString();
 		date = date.replace(/\//g, '-')
 	}
-	var loginHorChart = echarts.init(document.getElementById('main')); 
+	var loginHorChart = echarts.init(document.getElementById('main'),'vintage'); 
 	var loginHoroption = {
 			title : {
 		        text: '各时段操作情况',

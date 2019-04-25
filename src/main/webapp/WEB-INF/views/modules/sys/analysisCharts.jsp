@@ -6,10 +6,11 @@
 <meta name="decorator" content="default"/>
 <title>图表</title>
 <script src="${ctxStatic}/echarts/echarts.min.js"></script>
+<script src="${ctxStatic}/echarts/vintage.js"></script>
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/sys/analysis/list">登录日志</a></li>
+		<li><a href="${ctx}/sys/analysis/list">登录日志</a></li>
 		<li class="active"><a href="${ctx}/sys/analysis/charts">图表</a></li>
 	</ul>
 		<div id="login_num" style="height:400px; "></div>
@@ -25,7 +26,7 @@
     		
     	}
         // 基于准备好的dom，初始化echarts实例
-        var loginLine = echarts.init(document.getElementById('login_num'));
+        var loginLine = echarts.init(document.getElementById('login_num'),'vintage');
         // 指定图表的配置项和数据
         var loginOption = {
         	    title: {

@@ -6,6 +6,7 @@
 <meta name="decorator" content="default"/>
 <script src="${ctxStatic}/echarts/echarts.min.js"></script>
 <script src="${ctxStatic}/echarts/china.js"></script>
+<script type="${ctxStatic}/echarts/vintage.js"></script>
 <title>登录地区</title>
 </head>
 <body>
