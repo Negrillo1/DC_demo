@@ -8,6 +8,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
+import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
 
 /**
  * 用户在线记录Entity
@@ -35,6 +36,7 @@ public class SysUserOnlineLog extends DataEntity<SysUserOnlineLog> {
 	}
 
 	@Length(min=1, max=100, message="login_name长度必须介于 1 和 100 之间")
+	@ExcelField(title="登录名", align=2, sort=10)
 	public String getLoginName() {
 		return loginName;
 	}
@@ -44,8 +46,15 @@ public class SysUserOnlineLog extends DataEntity<SysUserOnlineLog> {
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	
 	public long getLoginTime() {
 		return loginTime;
+	}
+	@ExcelField(title="登录时间", type=0, align=1, sort=20)
+	public Date getFLoginTime() {
+		Date d = new Date();
+		d.setTime(loginTime);
+		return d;
 	}
 
 	public void setLoginTime(long loginTime) {
@@ -53,10 +62,16 @@ public class SysUserOnlineLog extends DataEntity<SysUserOnlineLog> {
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	
 	public long getLogoutTime() {
 		return logoutTime;
 	}
-
+	@ExcelField(title="退出时间", type=0, align=1, sort=30)
+	public Date getFLogoutTime() {
+		Date d = new Date();
+		d.setTime(logoutTime);
+		return d;
+	}
 	public void setLogoutTime(long logoutTime) {
 		this.logoutTime = logoutTime;
 	}
@@ -69,7 +84,7 @@ public class SysUserOnlineLog extends DataEntity<SysUserOnlineLog> {
 	public void setUpadteDate(Date upadteDate) {
 		this.upadteDate = upadteDate;
 	}
-	
+	@ExcelField(title="在线时长", align=2, sort=10)
 	public Double getOnlineHours() {
 		return onlineHours;
 	}

@@ -41,6 +41,7 @@ public class SysUserOnlineLogService extends CrudService<SysUserOnlineLogDao, Sy
 		if (sysUserOnlineLog.getEndDate() == null){
 			sysUserOnlineLog.setEndDate(DateUtils.addMonths(sysUserOnlineLog.getBeginDate(), 1));
 		}
+		page.setOrderBy("login_time");
 		return super.findPage(page, sysUserOnlineLog);
 	}
 	
@@ -53,6 +54,12 @@ public class SysUserOnlineLogService extends CrudService<SysUserOnlineLogDao, Sy
 	public void delete(SysUserOnlineLog sysUserOnlineLog) {
 		super.delete(sysUserOnlineLog);
 	}
+	/**
+	 * @version: 
+	 * @Description:  根据用户名或登录日期获取用户 
+	 * @author: ljk  
+	 * @date: 2019年4月26日 下午1:12:47
+	 */
 	@Transactional(readOnly = false)
 	public SysUserOnlineLog findBy(SysUserOnlineLog sysUserOnlineLog) {
 		return sysUserOnlineLogDao.findBy(sysUserOnlineLog);
