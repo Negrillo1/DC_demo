@@ -9,6 +9,9 @@
 <title>学生基本信息</title>
 </head>
 <body>
+<ul class="nav nav-tabs">
+	<li class="active"><a href="${ctx}/sys/analysis/stuInfo">基本信息图表</a></li>
+</ul>
 <div id="main" style="width: 100%; height: 500px;"></div>
 <div id="userAge" style="width: 100%; height: 500px;"></div>
 <script type="text/javascript">
@@ -67,7 +70,7 @@
 		    },
 			tooltip: {
 		        trigger: 'item',
-		        formatter: "{a} <br/>{b}: {c} ({d}%)"
+		        formatter: "{a} <br/>{b}岁: {c}人 ({d}%)"
 		    },
 		    legend: {
 		        orient: 'vertical',

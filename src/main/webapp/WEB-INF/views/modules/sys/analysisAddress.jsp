@@ -14,7 +14,7 @@
 	<li class="active"><a href="${ctx}/sys/analysis/address">用户地区图表</a></li>
 	<li ><a href="${ctx}/sys/analysis/addressList">用户地区列表</a></li>
 </ul> 
-<div id="main" style="width: 100%;height:500px;"></div>
+<div id="main" style="width: 100%;height:800px;"></div>
 <script type="text/javascript">
 //设置数据
 

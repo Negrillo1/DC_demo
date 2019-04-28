@@ -15,6 +15,9 @@
 </script>
 </head>
 <body>
+<ul class="nav nav-tabs">
+<li class="active"><a href="${ctx}/sys/analysis/loginHor">登录时段图表</a></li>
+</ul>
 <form:form id="searchForm" action="" method = "get" class="breadcrumb form-search">
 	<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 	<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
