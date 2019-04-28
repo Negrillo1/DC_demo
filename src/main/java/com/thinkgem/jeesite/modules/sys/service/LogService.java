@@ -17,6 +17,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
 import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.modules.sys.dao.LogDao;
+import com.thinkgem.jeesite.modules.sys.dto.LogDto;
 import com.thinkgem.jeesite.modules.sys.entity.Log;
 
 /**
@@ -45,7 +46,7 @@ public class LogService extends CrudService<LogDao, Log> {
 		
 	}
 	//查询登录记录
-	public Page<Log> findLogin(Page<Log> page, Log log) {
+	public Page<LogDto> findLogin(Page<Log> page, Log log) {
 		//设置默认时间范围，默认当前月
 		if (log.getBeginDate() == null){
 			log.setBeginDate(DateUtils.setDays(DateUtils.parseDate(DateUtils.getDate()), 1));
@@ -53,9 +54,10 @@ public class LogService extends CrudService<LogDao, Log> {
 		if (log.getEndDate() == null){
 			log.setEndDate(DateUtils.addMonths(log.getBeginDate(), 1));
 		}
+		Page<LogDto> pageDto = new Page<LogDto>();
 		log.setPage(page);
-		page.setList(logDao.findLogin(log));
-		return page;
+		pageDto.setList(logDao.findLogin(log));
+		return pageDto;
 	}
 	/**
 	 * @version: 

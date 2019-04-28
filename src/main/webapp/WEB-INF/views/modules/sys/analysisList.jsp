@@ -5,6 +5,17 @@
 	<title>登录日志</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#btnExport").click(function() {
+			top.$.jBox.confirm("确认要导出用户数据吗？","系统提示",function(v,h,f){
+				if(v=="ok"){
+					$("#searchForm").attr("action","${ctx}/sys/analysis/export");
+					$("#searchForm").submit();
+				}
+			},{buttonsFocus:1});
+			top.$('.jbox-body .jbox-icon').css('top','55px');
+		});
+	});
 		function page(n,s){
 			$("#pageNo").val(n);
 			$("#pageSize").val(s);
@@ -36,25 +47,24 @@
 		<li class="active"><a href="${ctx}/sys/analysis/list">登录日志</a></li>
 		<li><a href="${ctx}/sys/analysis/charts">图表</a></li>
 	</ul>
-	<form action="${ctx}/sys/analysis/list" method="post" class="breadcrumb form-search">
+	<form action="${ctx}/sys/analysis/list" method="post" class="breadcrumb form-search" id="searchForm">
 			<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 			<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 			<li><label>登录名：</label><input id="createBy.loginName" name="createBy.loginName" type="text" maxlength="50" class="input-mini"/></li>
-			<li><label>姓名：</label><input  id="createBy.name" name="createBy.name" type="text" maxlength="50" class="input-mini"/></li>
 			<label>登录时间：&nbsp;</label><input id="beginDate" name="beginDate" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
 				value="<fmt:formatDate value="${log.beginDate}" pattern="yyyy-MM-dd"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			<label>&nbsp;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input id="endDate" name="endDate" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
 				value="<fmt:formatDate value="${log.endDate}" pattern="yyyy-MM-dd"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>&nbsp;&nbsp;&nbsp;&nbsp;
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
+			<input id="btnExport" class="btn btn-primary" type="button" value="导出"/>
 	</form>
 	<sys:message content="${message}"/>
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
-	<thead><th class="sort-column login_name">登录名</th><th class="sort-column name">姓名</th><th>登录时间</th><th>IP</th></thead>
+	<thead><th class="sort-column login_name">登录名</th><th>登录时间</th><th>IP</th></thead>
 	<tbody>
 		<c:forEach items="${page.list}" var="log">
 		<tr>
-			<td>${log.createBy.loginName}</td>
-			<td>${log.createBy.name}</td>
+			<td>${log.loginName}</td>
 			<td><fmt:formatDate value="${log.createDate}" type="both"/></td>
 			<td>${log.remoteAddr}</td>
 			<%-- <td>${log.createBy.ip}</td> --%>

@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+import com.thinkgem.jeesite.modules.sys.dto.LogDto;
 import com.thinkgem.jeesite.modules.sys.entity.Log;
 
 /**
@@ -24,7 +25,7 @@ public interface LogDao extends CrudDao<Log> {
 	 * @author: ljk  
 	 * @date: 2019年3月21日 上午10:57:05
 	 */
-	public List<Log> findLogin(Log log);
+	public List<LogDto> findLogin(Log log);
 	/**
 	 * @version: 
 	 * @Description:  查询过去x天的登录次数

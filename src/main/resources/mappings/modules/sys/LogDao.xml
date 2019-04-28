@@ -62,10 +62,9 @@
 			#{exception}
 		)
 	</insert>
-	<select id="findLogin" resultType="Log">
+	<select id="findLogin" resultType="LogDto">
 		SELECT
-			u.name AS "createBy.name",
-			u.login_name AS "createBy.login_name",
+			u.name login_name,
 			a.remote_addr,
 			a.create_date
 		FROM sys_log a
