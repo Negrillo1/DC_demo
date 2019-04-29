@@ -46,17 +46,16 @@ public class LogService extends CrudService<LogDao, Log> {
 		
 	}
 	//查询登录记录
-	public Page<LogDto> findLogin(Page<Log> page, Log log) {
+	public Page<LogDto> findLogin(Page<LogDto> pageDto, LogDto logDto) {
 		//设置默认时间范围，默认当前月
-		if (log.getBeginDate() == null){
-			log.setBeginDate(DateUtils.setDays(DateUtils.parseDate(DateUtils.getDate()), 1));
+		if (logDto.getBeginDate() == null){
+			logDto.setBeginDate(DateUtils.setDays(DateUtils.parseDate(DateUtils.getDate()), 1));
 		}
-		if (log.getEndDate() == null){
-			log.setEndDate(DateUtils.addMonths(log.getBeginDate(), 1));
+		if (logDto.getEndDate() == null){
+			logDto.setEndDate(DateUtils.addMonths(logDto.getBeginDate(), 1));
 		}
-		Page<LogDto> pageDto = new Page<LogDto>();
-		log.setPage(page);
-		pageDto.setList(logDao.findLogin(log));
+		logDto.setPage(pageDto);
+		pageDto.setList(logDao.findLogin(logDto));
 		return pageDto;
 	}
 	/**

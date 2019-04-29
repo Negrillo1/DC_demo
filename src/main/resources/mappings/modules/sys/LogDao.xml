@@ -64,18 +64,15 @@
 	</insert>
 	<select id="findLogin" resultType="LogDto">
 		SELECT
-			u.name login_name,
+			u.login_name login_name,
 			a.remote_addr,
 			a.create_date
 		FROM sys_log a
 		JOIN sys_user u ON u.id = a.create_by
 		WHERE a.title = '系统登录'
 		AND a.create_date BETWEEN #{beginDate} AND #{endDate}
-		<if test="createBy != null and createBy.loginName != null and createBy.loginName != ''">
-			AND u.login_name LIKE CONCAT('%', #{createBy.loginName}, '%')
-		</if>
-		<if test="createBy != null and createBy.name != null and createBy.name != ''">
-			AND u.name LIKE CONCAT('%', #{createBy.name}, '%')
+		<if test="loginName != null and loginName != null and loginName != ''">
+			AND u.login_name LIKE CONCAT('%', #{loginName}, '%')
 		</if>
 		ORDER BY a.create_date DESC
 	</select>

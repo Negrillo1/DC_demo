@@ -25,7 +25,7 @@ public interface LogDao extends CrudDao<Log> {
 	 * @author: ljk  
 	 * @date: 2019年3月21日 上午10:57:05
 	 */
-	public List<LogDto> findLogin(Log log);
+	public List<LogDto> findLogin(LogDto logDto);
 	/**
 	 * @version: 
 	 * @Description:  查询过去x天的登录次数

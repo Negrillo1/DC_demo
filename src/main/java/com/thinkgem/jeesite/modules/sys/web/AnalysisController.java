@@ -52,8 +52,8 @@ public class AnalysisController extends BaseController{
 	}
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = {"list", ""})
-	public String list(Log log, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<LogDto> page = logService.findLogin(new Page<Log>(request, response), log);
+	public String list(LogDto log, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<LogDto> page = logService.findLogin(new Page<LogDto>(request, response), log);
         model.addAttribute("page", page);
 		return "modules/sys/analysisList";
 	}
@@ -206,10 +206,10 @@ public class AnalysisController extends BaseController{
 	 */
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = "export", method=RequestMethod.POST)
-	public String export(Log log, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+	public String export(LogDto log, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		try {
 			String fileName = "学生登录日志"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
-			Page<LogDto> page = logService.findLogin(new Page<Log>(request, response,-1), log);
+			Page<LogDto> page = logService.findLogin(new Page<LogDto>(request, response,-1), log);
 			new ExportExcel("学生登录日志",LogDto.class).setDataList(page.getList()).write(response, fileName).dispose();
 			return null;
 		} catch (Exception e) {
