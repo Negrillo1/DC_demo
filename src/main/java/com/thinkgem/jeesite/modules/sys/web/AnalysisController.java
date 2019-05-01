@@ -162,14 +162,17 @@ public class AnalysisController extends BaseController{
 	public String stuInfo(Model model) {
 		List<Map<String,Integer>> listMaps = systemService.findUserSex();
 		List<Map<String,Integer>> ageMaps = systemService.findUserAge();
+		List<Map<String,Integer>> addressMaps = systemService.getUserAddress();
 		JSONArray mapJson = JSONArray.fromObject(listMaps);
 		JSONArray ageJson = JSONArray.fromObject(ageMaps);
+		JSONArray addressJson = JSONArray.fromObject(addressMaps);
 		String listStr = mapJson.toString();
 		String ageString = ageJson.toString();
 		listStr = listStr.replace("\"name\"", "name").replace("\"value\"", "value");
 		ageString = ageString.replace("\"name\"", "name").replace("\"value\"", "value");
 		model.addAttribute("ageString",ageString);
 		model.addAttribute("listStr",listStr);
+		model.addAttribute("addressJson",addressJson);
 		return "modules/sys/stuInfo";
 	}
 	/**
