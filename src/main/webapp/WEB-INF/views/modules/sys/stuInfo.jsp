@@ -24,7 +24,7 @@
 <script type="text/javascript">
 	var cumulativePie = echarts.init(document.getElementById('main'),'vintage');
 	var userAgeBar = echarts.init(document.getElementById('userAge'),'vintage');
-	var myChart = echarts.init(document.getElementById('userAdress'),'vintage');
+	var addressBar = echarts.init(document.getElementById('userAdress'),'vintage');
 	var cumulativePieOption = {
 	    title : {
 	        text: '学生性别比例',
@@ -33,7 +33,8 @@
 	    },
 	    tooltip : {
 	        trigger: 'item',
-	        formatter: "{b} : {c} ({d}%)"
+	        formatter: "{b} : {c} ({d}%)",
+	        
 	    },
 	    legend: {
 	        orient : 'vertical',
@@ -68,7 +69,25 @@
 	            type:'pie',
 	            radius : '55%',
 	            center: ['50%', '60%'],
-	            data:${listStr}
+	            data:${listStr},
+	            label: {
+	                normal: {
+	                    show: true,
+	                    position: 'inner',
+	                    textStyle: {
+	                    	fontWeight : 300,
+	                    	fontSize : 14
+	                    },
+	                    formatter:'{b} : {d}%'
+	                },
+	                emphasis: {
+	                    show: false,
+	                    textStyle: {
+	                        fontSize: '30',
+	                        fontWeight: 'bold'
+	                    }
+	                }
+	            }
 	        }
 	    ]
 	};
@@ -112,14 +131,18 @@
 		        {
 		            name:'年龄比例',
 		            type:'pie',
-		            /* radius: ['50%', '70%'], */
 		            radius : '55%',
-	            	center: ['50%', '60%'],
+		            center: ['50%', '60%'],
 		            avoidLabelOverlap: false,
 		            label: {
 		                normal: {
-		                    show: false,
-		                    position: 'center'
+		                    show: true,
+		                    position: 'inner',
+		                    textStyle: {
+		                    	fontWeight : 300,
+		                    	fontSize : 14
+		                    },
+		                    formatter:'{d}%'
 		                },
 		                emphasis: {
 		                    show: false,
@@ -135,6 +158,7 @@
 		                }
 		            },
 		            data:${ageString}
+		         
 		        }
 		    ]
 		};
@@ -151,7 +175,7 @@
 	}
 	var max = Math.max.apply(null,va);
 	var dataAxis = na;
-	var data = va;
+	var Addressdata = va;
 	var yMax = max + 10;
 	var dataShadow = [];
 
@@ -163,10 +187,6 @@
 		        text: '学生地区统计',
 		        subtext: '各地区学生人数',
 		        x:'center'
-		    },
-		    tooltip: {
-		    	trigger: 'item',
-		    	formatter: "{b}: {c}人 "
 		    },
 		    xAxis: {
 		        data: dataAxis,
@@ -196,6 +216,10 @@
 		                color: '#999'
 		            }
 		        }
+		    },
+		    label: {
+		    	show: true,
+		    	position: 'top'
 		    },
 		    dataZoom: [
 		        {
@@ -237,24 +261,24 @@
 		                    )
 		                }
 		            },
-		            data: data
+		            data: Addressdata
 		        }
 		    ]
-		};
+		}; 
 
 		// Enable data zoom when user click bar.
 		var zoomSize = 6;
-		myChart.on('click', function (params) {
+		addressBar.on('click', function (params) {
 		    console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-		    myChart.dispatchAction({
+		    addressBar.dispatchAction({
 		        type: 'dataZoom',
 		        startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
-		        endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+		        endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, Addressdata.length - 1)]
 		    });
 		});
 	cumulativePie.setOption(cumulativePieOption);
 	userAgeBar.setOption(userAgeOption);
-	myChart.setOption(userAddressOption);
+	addressBar.setOption(userAddressOption);
 </script>	
 </body>
 </html>
