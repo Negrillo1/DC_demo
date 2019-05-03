@@ -38,7 +38,7 @@
 	var loginHorChart = echarts.init(document.getElementById('main'),'vintage'); 
 	var loginHoroption = {
 			title : {
-		        text: '各时段操作情况',
+		        text: '各时段登录情况',
 		        left: 'center',
 		       	subtext: date
 		    },

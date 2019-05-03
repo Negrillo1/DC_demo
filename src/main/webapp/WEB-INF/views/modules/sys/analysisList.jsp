@@ -45,7 +45,7 @@
 	</form:form> --%>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/sys/analysis/list">登录日志</a></li>
-		<li><a href="${ctx}/sys/analysis/charts">图表</a></li>
+		<li><a href="${ctx}/sys/analysis/charts?day=15">图表</a></li>
 	</ul>
 	<form action="${ctx}/sys/analysis/list" method="post" class="breadcrumb form-search" id="searchForm">
 			<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>

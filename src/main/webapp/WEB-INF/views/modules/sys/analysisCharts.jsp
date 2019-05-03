@@ -50,7 +50,7 @@
     	var va = new Array();
     	var j = 0;
     	for(var i in listJson) {
-    		na[j] = listJson[i].time;
+    		na[j] = listJson[i].time.substring(4,6) + "/" + listJson[i].time.substring(6,8);
     		va[j] = listJson[i].num;
     		j++;
     	}
