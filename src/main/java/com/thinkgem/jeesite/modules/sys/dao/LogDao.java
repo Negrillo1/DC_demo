@@ -4,6 +4,7 @@
 package com.thinkgem.jeesite.modules.sys.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import com.thinkgem.jeesite.common.persistence.CrudDao;
@@ -32,7 +33,7 @@ public interface LogDao extends CrudDao<Log> {
 	 * @author: ljk  
 	 * @date: 2019年4月13日 上午1:05:43
 	 */
-	public List findLoginPast(int day);
+	public List<Map<String,Integer>> findLoginPast(int day);
 	/**
 	 * @version: 
 	 * @Description: 查询某天各时间段登录情况 
@@ -40,4 +41,11 @@ public interface LogDao extends CrudDao<Log> {
 	 * @date: 2019年4月15日 上午12:48:16
 	 */
 	public List findLoginHor(@Param("date")String date);
+	/**
+	 * @version: 
+	 * @Description: 根据时间段统计登录次数
+	 * @author: ljk  
+	 * @date: 2019年5月3日 下午9:48:26
+	 */
+	public List<Map<String,Integer>> findLoginByTime(Log log);
 }

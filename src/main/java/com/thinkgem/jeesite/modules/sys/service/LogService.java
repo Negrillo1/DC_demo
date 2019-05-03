@@ -64,9 +64,25 @@ public class LogService extends CrudService<LogDao, Log> {
 	 * @author: ljk  
 	 * @date: 2019年4月13日 上午12:46s:44
 	 */
-	public List findLoginPast(int i) {
+	public List<Map<String,Integer>> findLoginPast(int i) {
 		// TODO Auto-generated method stub
-		List list =  logDao.findLoginPast(i);	
+		List<Map<String,Integer>> list = logDao.findLoginPast(i);	
+		return list;
+	}
+	/**
+	 * @version: 
+	 * @Description: 根据时间段统计登录次数 
+	 * @author: ljk  
+	 * @date: 2019年5月3日 下午9:51:09
+	 */
+	public List<Map<String,Integer>> findLoginByTime(Log log) {
+		if (log.getBeginDate() == null){
+			log.setBeginDate(DateUtils.setDays(DateUtils.parseDate(DateUtils.getDate()), 1));
+		}
+		if (log.getEndDate() == null){
+			log.setEndDate(DateUtils.addMonths(log.getBeginDate(), 1));
+		}
+		List<Map<String,Integer>> list = logDao.findLoginByTime(log);
 		return list;
 	}
 	/**

@@ -66,8 +66,17 @@ public class AnalysisController extends BaseController{
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = {"charts"})
 	public String charts(Log log, HttpServletRequest request, HttpServletResponse response, Model model) {
-		List list = (List) logService.findLoginPast(15);
-		model.addAttribute("list",list);
+		String day = request.getParameter("day");
+		List<Map<String,Integer>> listMaps;
+		if(day != null && !day.equals("0")) {
+			listMaps = logService.findLoginPast(Integer.valueOf(day).intValue());
+		}else {
+			listMaps = logService.findLoginByTime(log);
+		}
+		
+		JSONArray listJson = JSONArray.fromObject(listMaps);
+		model.addAttribute("listJson",listJson);
+		model.addAttribute("day",day);
 		return "modules/sys/analysisCharts";
 	}
 	/**
