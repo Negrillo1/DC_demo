@@ -46,7 +46,7 @@
 		FROM sys_user_online_log a
 		<include refid="sysUserOnlineLogJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL} AND a.create_date BETWEEN #{beginDate} AND #{endDate}
+			a.del_flag = #{DEL_FLAG_NORMAL} AND a.create_date BETWEEN #{beginDate} AND #{endDate} AND a.online_hours is not null 
 		</where>
 		<if test="loginName != null and loginName != ''">
 			AND a.login_name LIKE CONCAT('%', #{loginName}, '%')
